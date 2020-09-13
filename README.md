@@ -12,5 +12,5 @@ pipenv run start <dir>
 
 ## References
 
-https://rightcode.co.jp/blog/information-technology/machine-learning-image-clustering
-https://avinton.com/academy/image-classification/
+- https://rightcode.co.jp/blog/information-technology/machine-learning-image-clustering
+- https://avinton.com/academy/image-classification/
