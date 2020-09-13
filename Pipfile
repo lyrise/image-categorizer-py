@@ -17,3 +17,7 @@ tensorflow = "*"
 
 [requires]
 python_version = "3.8"
+
+[scripts]
+start = "python main.py"
+format = "autopep8 -ivr ."

@@ -21,7 +21,7 @@ for ext in ('*.gif', '*.png', '*.jpg'):
     for file in glob.glob(os.path.join(base_dir, "**/"+ext), recursive=True):
         img_paths.append(file)
 random.shuffle(img_paths)
-img_paths = img_paths[:1000]
+img_paths = img_paths[:5000]
 
 img_list = []
 for p in img_paths:
@@ -36,7 +36,7 @@ model = tf.keras.applications.resnet50.ResNet50(include_top=False,
 features = model.predict(img_list)
 dataset = features.reshape((len(img_list), -1))
 
-cluster_count = 20
+cluster_count = 50
 
 kmeans = KMeans(n_clusters=cluster_count, random_state=0).fit(dataset)
 labels = kmeans.labels_

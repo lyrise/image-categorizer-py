@@ -7,7 +7,7 @@
 ## Usage
 
 ```sh
-pipenv run python kmeans/kmeans.py <dir>
+pipenv run start <dir>
 ```
 
 ## References
