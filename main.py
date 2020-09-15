@@ -12,26 +12,35 @@ import tensorflow as tf
 from sklearn.cluster import KMeans
 from sklearn.decomposition import IncrementalPCA
 
-base_dir = sys.argv[1]
+src_dir = sys.argv[1]
+dest_dir = sys.argv[2]
 
 np.random.seed(0)
 
 img_paths = []
 for ext in ('*.gif', '*.png', '*.jpg'):
-    for file in glob.glob(os.path.join(base_dir, "**/"+ext), recursive=True):
+    for file in glob.glob(os.path.join(src_dir, "**/"+ext), recursive=True):
         img_paths.append(file)
 random.shuffle(img_paths)
-img_paths = img_paths[:5000]
+img_paths = img_paths[:10000]
 
 img_list = []
+failed_img_paths = []
 for p in img_paths:
-    img = image.load_img(p, target_size=(224, 224), grayscale=False)
-    x = image.img_to_array(img)
-    x = tf.keras.applications.resnet50.preprocess_input(x)
-    img_list.append(x)
+    try:
+        img = image.load_img(p, target_size=(224, 224), grayscale=False)
+        x = image.img_to_array(img)
+        x = tf.keras.applications.resnet50.preprocess_input(x)
+        img_list.append(x)
+    except OSError:
+        failed_img_paths.append(p)
 img_list = np.array(img_list)
-model = tf.keras.applications.resnet50.ResNet50(include_top=False,
-                                                input_shape=[224, 224, 3], weights='imagenet')
+
+for p in failed_img_paths:
+    img_list.remove(p)
+
+model = tf.keras.applications.resnet50.ResNet50(
+    include_top=False, input_shape=[224, 224, 3], weights='imagenet')
 
 features = model.predict(img_list)
 dataset = features.reshape((len(img_list), -1))
@@ -45,7 +54,7 @@ datetime_text = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
 for i in range(cluster_count):
     label = np.where(labels == i)[0]
-    target_dir = os.path.join(base_dir, datetime_text, "__label__"+str(i))
+    target_dir = os.path.join(dest_dir, datetime_text, str(i))
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
     for j in label:
