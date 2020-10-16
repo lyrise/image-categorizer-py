@@ -7,7 +7,7 @@
 ## Usage
 
 ```sh
-pipenv run start <dir>
+poetry run python ./main.py <src> <dst>
 ```
 
 ## References

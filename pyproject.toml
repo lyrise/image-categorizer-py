@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "categorize-images-py"
+version = "0.1.0"
+description = ""
+authors = ["Lyrise <lyrise1984@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+scikit-learn = "^0.23.2"
+Pillow = "^8.0.0"
+matplotlib = "^3.3.2"
+Keras = "^2.4.3"
+tensorflow = "^2.3.1"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.5.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
