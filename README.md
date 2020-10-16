@@ -1,4 +1,4 @@
-# categorize-images-py
+# image-categorizer-py
 
 画像を類似度別にカテゴライズする
 
